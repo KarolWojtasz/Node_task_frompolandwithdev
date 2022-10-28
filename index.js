@@ -20,15 +20,35 @@ app.get('/questions', async (req, res) => {
   res.json(questions)
 })
 
-app.get('/questions/:questionId', (req, res) => {})
+app.get('/questions/:questionId', (req, res) => {
+  req.repositories.questionRepo.getQuestionById(req.params.questionId).then((value) => {
+    res.json(value)
+  });
+})
 
-app.post('/questions', (req, res) => {})
+app.post('/questions', (req, res) => {
+  req.repositories.questionRepo.addQuestion(req.body).then((value) => {
+    res.json(value)
+  });
+})
 
-app.get('/questions/:questionId/answers', (req, res) => {})
+app.get('/questions/:questionId/answers', (req, res) => {
+  req.repositories.questionRepo.getAnswers(req.params.questionId).then((value) => {
+    res.json(value)
+  });
+})
 
-app.post('/questions/:questionId/answers', (req, res) => {})
+app.post('/questions/:questionId/answers', (req, res) => {
+  req.repositories.questionRepo.addAnswer(req.params.questionId, req.body).then((value) => {
+    res.json(value)
+  });
+})
 
-app.get('/questions/:questionId/answers/:answerId', (req, res) => {})
+app.get('/questions/:questionId/answers/:answerId', (req, res) => {
+  req.repositories.questionRepo.getAnswer(req.params.questionId, req.params.answerId).then((value) => {
+    res.json(value)
+  });
+})
 
 app.listen(PORT, () => {
   console.log(`Responder app listening on port ${PORT}`)
